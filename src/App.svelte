@@ -2,10 +2,14 @@
     import Hoverable from "./Hoverable.svelte";
     import Modal from "./Modal.svelte";
     import { prompts, sources } from "./Prompts.js";
+    let count = 0;
 
     let showModal = false;
     let Set = "Friends"; // ["Work", "Friends", "SO"];
 
+    function handleClick() {
+        count += 1;
+    }
     function getRandomInt(min, max) {
         //The maximum is exclusive and the minimum is inclusive
         min = Math.ceil(min);
@@ -75,6 +79,9 @@
     <div class:active>
         {#if active}
             <p>👷 Under construction</p>
+            <button on:click={handleClick}>
+                I want it! {count}
+            </button>
         {:else}
             <p>Input your own</p>
         {/if}
