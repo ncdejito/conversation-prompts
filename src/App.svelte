@@ -2,14 +2,16 @@
     import Hoverable from "./Hoverable.svelte";
     import Modal from "./Modal.svelte";
     import { prompts, sources } from "./Prompts.js";
-    let count = 0;
+    import DarkMode from "svelte-dark-mode";
+
+    let theme;
+
+    $: switchTheme = theme === "dark" ? "light" : "dark";
+    $: document.body.className = theme;
 
     let showModal = false;
     let Set = "Friends"; // ["Work", "Friends", "SO"];
 
-    function handleClick() {
-        count += 1;
-    }
     function getRandomInt(min, max) {
         //The maximum is exclusive and the minimum is inclusive
         min = Math.ceil(min);
@@ -24,6 +26,7 @@
     }
 </script>
 
+<DarkMode bind:theme />
 <Hoverable let:hovering={active}>
     <div class:active>
         {#if active}
@@ -79,9 +82,6 @@
     <div class:active>
         {#if active}
             <p>👷 Under construction</p>
-            <button on:click={handleClick}>
-                I want it! {count}
-            </button>
         {:else}
             <p>Input your own</p>
         {/if}
@@ -106,5 +106,9 @@
     .active {
         background-color: #ff3e00;
         color: white;
+    }
+    :global(.dark) {
+        background: #032f62;
+        color: #f1f8ff;
     }
 </style>
